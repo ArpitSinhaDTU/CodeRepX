@@ -17,7 +17,7 @@ load_dotenv()
 groq_classifier = ChatGroq(
     temperature=0.1,
     model_name="deepseek-r1-distill-llama-70b",
-    groq_api_key="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"
+    groq_api_key="KEY"
 )
 
 groq_verifier = ChatGroq(
@@ -26,7 +26,7 @@ groq_verifier = ChatGroq(
     groq_api_key="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"
 )
 
-genai.configure(api_key="AIzaSyDnCdHVpg35b255lOVy1HigwqnfbBK8vKM")
+genai.configure(api_key="KEY")
 gemini_llm = genai.GenerativeModel('models/gemini-2.0-flash')
 
 # Create directories if they don't exist
