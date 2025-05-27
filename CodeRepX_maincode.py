@@ -140,11 +140,11 @@ def repair_workflow(original_code, max_attempts=7):
             verification = llama_verifier(original_code, fixed_code, defect_class)
             
             if "VERDICT: APPROVED" in verification:
-                print("✓ Fix approved!")
+                print("Fix approved!")
                 return fixed_code, "SUCCESS", defect_class
             else:
                 feedback = verification.split("REASON: ")[-1] if "REASON: " in verification else verification
-                print(f"! Rejection reason: {feedback}")
+                print(f"Rejection reason: {feedback}")
                 current_code = fixed_code
                 attempts += 1
                 
