@@ -33,7 +33,7 @@ gemini_llm = genai.GenerativeModel('models/gemini-2.0-flash')
 os.makedirs(INPUT_DIR, exist_ok=True)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# Define defect classes
+# Define defect classes(FEW SHOT PROMPTING)
 DEFECT_CLASSES = """1. Off-by-one Error: Example - 'range(len(arr))' instead of 'range(len(arr)-1)'
 2. Incorrect Condition: Example - 'if x == y' instead of 'if x != y'
 3. Missing Base Case: Example - Recursive function without termination
@@ -49,7 +49,7 @@ DEFECT_CLASSES = """1. Off-by-one Error: Example - 'range(len(arr))' instead of 
 13. Boundary Condition: Example - Not handling empty input
 14. Incorrect Formula: Example - Wrong mathematical formula"""
 
-# Agent 1: Deepseek Classifier
+# Agent 1: Deepseek Classifier(CHAIN OF THOUGHT PROMPTING)
 cot_classifier_prompt = PromptTemplate(
     input_variables=["code"],
     template=f"""Analyze this code step-by-step to classify the defect:
@@ -64,7 +64,7 @@ Reasoning Steps:"""
 )
 classifier_chain = cot_classifier_prompt | groq_classifier | RunnablePassthrough()
 
-# Agent 2: Gemini Fixer
+# Agent 2: Gemini Fixer(REACT PROMPTING)
 react_fixer_prompt = PromptTemplate(
     input_variables=["code", "defect_class", "feedback"],
     template="""Fix this Python code using ReAct framework:
